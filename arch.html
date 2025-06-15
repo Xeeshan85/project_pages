@@ -276,7 +276,7 @@
                 <div class="pipeline-step">
                     <div class="step-number">2</div>
                     <div class="step-title">Semantic Chunking</div>
-                    <div class="step-desc">Split text into overlapping chunks (300 words + 50 word overlap) using NLTK</div>
+                    <div class="step-desc">Process documents into single chunks due to small size (160-193 words each)</div>
                 </div>
                 <div class="arrow"></div>
                 
@@ -319,27 +319,27 @@
                 <tbody>
                     <tr>
                         <td><strong>AI Article</strong></td>
-                        <td>486 words</td>
-                        <td>8 chunks</td>
-                        <td>67 words</td>
-                        <td>7.3:1</td>
-                        <td>3.2 sec</td>
+                        <td>160 words</td>
+                        <td>1 chunk</td>
+                        <td>46 words</td>
+                        <td>3.5:1</td>
+                        <td>~3.0 sec</td>
                     </tr>
                     <tr>
                         <td><strong>Climate Report</strong></td>
-                        <td>502 words</td>
-                        <td>9 chunks</td>
-                        <td>71 words</td>
-                        <td>7.1:1</td>
-                        <td>3.8 sec</td>
+                        <td>193 words</td>
+                        <td>1 chunk</td>
+                        <td>49 words</td>
+                        <td>3.9:1</td>
+                        <td>~3.2 sec</td>
                     </tr>
                     <tr>
                         <td><strong>Tech Trends</strong></td>
-                        <td>445 words</td>
-                        <td>7 chunks</td>
-                        <td>63 words</td>
-                        <td>7.1:1</td>
-                        <td>2.9 sec</td>
+                        <td>177 words</td>
+                        <td>1 chunk</td>
+                        <td>48 words</td>
+                        <td>3.7:1</td>
+                        <td>~3.1 sec</td>
                     </tr>
                 </tbody>
             </table>
@@ -350,20 +350,20 @@
                     <div class="bar-chart">
                         <div class="bar-item">
                             <div class="bar-label">AI Article</div>
-                            <div class="bar" style="width: 100%;">
-                                <div class="bar-value">486 words</div>
+                            <div class="bar" style="width: 83%;">
+                                <div class="bar-value">160 words</div>
                             </div>
                         </div>
                         <div class="bar-item">
                             <div class="bar-label">Climate Report</div>
-                            <div class="bar" style="width: 103%;">
-                                <div class="bar-value">502 words</div>
+                            <div class="bar" style="width: 100%;">
+                                <div class="bar-value">193 words</div>
                             </div>
                         </div>
                         <div class="bar-item">
                             <div class="bar-label">Tech Trends</div>
                             <div class="bar" style="width: 92%;">
-                                <div class="bar-value">445 words</div>
+                                <div class="bar-value">177 words</div>
                             </div>
                         </div>
                     </div>
@@ -374,20 +374,20 @@
                     <div class="bar-chart">
                         <div class="bar-item">
                             <div class="bar-label">AI Article</div>
-                            <div class="bar" style="width: 100%;">
-                                <div class="bar-value">7.3:1</div>
+                            <div class="bar" style="width: 90%;">
+                                <div class="bar-value">3.5:1</div>
                             </div>
                         </div>
                         <div class="bar-item">
                             <div class="bar-label">Climate Report</div>
-                            <div class="bar" style="width: 97%;">
-                                <div class="bar-value">7.1:1</div>
+                            <div class="bar" style="width: 100%;">
+                                <div class="bar-value">3.9:1</div>
                             </div>
                         </div>
                         <div class="bar-item">
                             <div class="bar-label">Tech Trends</div>
-                            <div class="bar" style="width: 97%;">
-                                <div class="bar-value">7.1:1</div>
+                            <div class="bar" style="width: 95%;">
+                                <div class="bar-value">3.7:1</div>
                             </div>
                         </div>
                     </div>
@@ -429,12 +429,12 @@
                 <div class="process-box">
                     <div class="process-icon">📊</div>
                     <div class="process-title">Consistent Performance</div>
-                    <div class="process-detail">7:1 compression ratio across all document types</div>
+                    <div class="process-detail">3.5-3.9:1 compression ratio across document types</div>
                 </div>
                 <div class="process-box">
                     <div class="process-icon">🎯</div>
-                    <div class="process-title">High Accuracy</div>
-                    <div class="process-detail">0.75+ similarity scores, no hallucinations</div>
+                    <div class="process-title">High Similarity Scores</div>
+                    <div class="process-detail">Strong semantic matching with negative cosine distances</div>
                 </div>
                 <div class="process-box">
                     <div class="process-icon">⚡</div>
