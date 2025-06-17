@@ -3,254 +3,299 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAG Pipeline Visualizations</title>
+    <title>Enhanced RAG Pipeline Visualizations</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
             padding: 20px;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            overflow: hidden;
+            border: 2px solid #ddd;
+            border-radius: 8px;
         }
         
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #333;
             color: white;
-            text-align: center;
             padding: 30px;
+            text-align: center;
+            border-bottom: 2px solid #ddd;
         }
         
         .header h1 {
-            margin: 0;
-            font-size: 2.5em;
-            font-weight: 300;
+            font-size: 2.2em;
+            font-weight: bold;
+            margin-bottom: 8px;
         }
         
         .header p {
-            margin: 10px 0 0 0;
-            opacity: 0.9;
             font-size: 1.1em;
+            opacity: 0.8;
         }
         
-        .visualization {
-            margin: 40px;
-            padding: 30px;
+        .section {
+            margin: 30px;
+            padding: 25px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
             background: #fafafa;
-            border-radius: 10px;
-            border-left: 5px solid #667eea;
         }
         
-        .viz-title {
-            font-size: 1.8em;
+        .section-title {
+            font-size: 1.6em;
+            font-weight: bold;
             margin-bottom: 20px;
             color: #333;
-            font-weight: 600;
+            border-bottom: 2px solid #333;
+            padding-bottom: 8px;
         }
         
-        /* Pipeline Architecture */
+        /* Pipeline Steps */
         .pipeline {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 20px;
+            gap: 15px;
         }
         
         .pipeline-step {
             background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            text-align: center;
-            width: 300px;
-            position: relative;
-            border: 2px solid #e1e8ed;
-            transition: all 0.3s ease;
-        }
-        
-        .pipeline-step:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            border-color: #667eea;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
         
         .step-number {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #333;
             color: white;
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1.2em;
-            margin: 0 auto 15px auto;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
         }
         
         .step-title {
-            font-size: 1.3em;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 5px;
         }
         
         .step-desc {
             color: #666;
             font-size: 0.95em;
-            line-height: 1.4;
         }
         
         .arrow {
-            width: 0;
-            height: 0;
-            border-left: 15px solid transparent;
-            border-right: 15px solid transparent;
-            border-top: 20px solid #667eea;
-            margin: 10px auto;
-        }
-        
-        /* Performance Charts */
-        .chart-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-top: 30px;
-        }
-        
-        .chart {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .chart-title {
-            font-size: 1.2em;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: #333;
             text-align: center;
+            font-size: 1.5em;
+            color: #333;
+            margin: 5px 0;
         }
         
-        .bar-chart {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
         }
         
-        .bar-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        .feature-box {
+            background: white;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 20px;
         }
         
-        .bar-label {
-            min-width: 120px;
-            font-size: 0.9em;
+        .feature-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .feature-list li {
+            margin-bottom: 5px;
             color: #666;
+            font-size: 0.9em;
         }
         
-        .bar {
-            flex: 1;
-            height: 25px;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-            border-radius: 12px;
-            position: relative;
-            overflow: hidden;
+        .feature-list li:before {
+            content: "• ";
+            color: #333;
+            font-weight: bold;
         }
         
-        .bar-value {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: white;
-            font-size: 0.85em;
-            font-weight: 600;
-        }
-        
-        /* Metrics Table */
-        .metrics-table {
+        /* Performance Table */
+        .performance-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
             background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 1px solid #333;
         }
         
-        .metrics-table th {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .performance-table th {
+            background: #333;
             color: white;
-            padding: 15px;
+            padding: 12px;
             text-align: left;
-            font-weight: 600;
+            font-weight: bold;
+            border: 1px solid #333;
         }
         
-        .metrics-table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #eee;
-            color: #333;
+        .performance-table td {
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            font-size: 0.9em;
         }
         
-        .metrics-table tr:hover {
+        .performance-table tr:nth-child(even) {
             background: #f8f9fa;
         }
         
-        /* Process Flow */
-        .process-flow {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 30px;
+        /* Tech Stack */
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
         }
         
-        .process-box {
+        .tech-item {
             background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 15px;
             text-align: center;
-            flex: 1;
-            min-width: 150px;
-            border-top: 4px solid #667eea;
         }
         
-        .process-icon {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-        
-        .process-title {
-            font-weight: 600;
-            color: #333;
+        .tech-name {
+            font-weight: bold;
             margin-bottom: 5px;
         }
         
-        .process-detail {
+        .tech-desc {
             font-size: 0.85em;
             color: #666;
         }
         
+        /* News Sources */
+        .news-sources {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .news-source {
+            background: white;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        /* File Structure */
+        .file-tree {
+            background: white;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 20px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9em;
+            margin-top: 20px;
+        }
+        
+        .file-tree pre {
+            margin: 0;
+            color: #333;
+        }
+        
+        /* Usage Examples */
+        .code-block {
+            background: #f1f1f1;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 15px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.85em;
+            margin-top: 15px;
+            overflow-x: auto;
+        }
+        
+        .code-block pre {
+            margin: 0;
+            color: #333;
+        }
+        
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-box {
+            background: white;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .stat-label {
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 5px;
+        }
+        
         @media (max-width: 768px) {
-            .chart-container {
+            .features-grid,
+            .tech-stack,
+            .stats-grid {
                 grid-template-columns: 1fr;
             }
             
-            .process-flow {
+            .pipeline-step {
                 flex-direction: column;
+                text-align: center;
             }
         }
     </style>
@@ -258,193 +303,276 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>RAG Document Summarization</h1>
-            <p>Pipeline Architecture & Performance Visualizations</p>
+            <h1>Enhanced RAG Document & News Summarizer</h1>
+            <p>Pipeline Architecture & System Overview</p>
         </div>
         
-        <!-- Pipeline Architecture -->
-        <div class="visualization">
-            <div class="viz-title">🏗️ System Architecture Pipeline</div>
+        <!-- System Architecture -->
+        <div class="section">
+            <div class="section-title">System Architecture Pipeline</div>
             <div class="pipeline">
                 <div class="pipeline-step">
                     <div class="step-number">1</div>
-                    <div class="step-title">Document Loading</div>
-                    <div class="step-desc">Load PDF/TXT files and extract clean text using PyPDF2 and text processors</div>
+                    <div class="step-content">
+                        <div class="step-title">News Retrieval & Document Loading</div>
+                        <div class="step-desc">Fetch news from RSS feeds (BBC, Reuters, CNN, etc.) or load local documents (PDF/TXT/MD/JSON)</div>
+                    </div>
                 </div>
-                <div class="arrow"></div>
+                <div class="arrow">↓</div>
                 
                 <div class="pipeline-step">
                     <div class="step-number">2</div>
-                    <div class="step-title">Semantic Chunking</div>
-                    <div class="step-desc">Process documents into single chunks due to small size (160-193 words each)</div>
+                    <div class="step-content">
+                        <div class="step-title">Content Extraction & Preprocessing</div>
+                        <div class="step-desc">Extract full article content from URLs, clean text, and normalize formatting</div>
+                    </div>
                 </div>
-                <div class="arrow"></div>
+                <div class="arrow">↓</div>
                 
                 <div class="pipeline-step">
                     <div class="step-number">3</div>
-                    <div class="step-title">Vector Embeddings</div>
-                    <div class="step-desc">Generate 384-dimensional embeddings using SentenceTransformers (MiniLM-L6-v2)</div>
+                    <div class="step-content">
+                        <div class="step-title">Semantic Chunking</div>
+                        <div class="step-desc">Split text into overlapping chunks (300 words, 50-word overlap) using sentence boundaries</div>
+                    </div>
                 </div>
-                <div class="arrow"></div>
+                <div class="arrow">↓</div>
                 
                 <div class="pipeline-step">
                     <div class="step-number">4</div>
-                    <div class="step-title">Vector Storage & Retrieval</div>
-                    <div class="step-desc">Store in ChromaDB and retrieve top-5 most relevant chunks via cosine similarity</div>
+                    <div class="step-content">
+                        <div class="step-title">Vector Embeddings & Storage</div>
+                        <div class="step-desc">Generate 384-dim embeddings (SentenceTransformers) and store in ChromaDB vector database</div>
+                    </div>
                 </div>
-                <div class="arrow"></div>
+                <div class="arrow">↓</div>
                 
                 <div class="pipeline-step">
                     <div class="step-number">5</div>
-                    <div class="step-title">Summary Generation</div>
-                    <div class="step-desc">Generate coherent summaries using Facebook BART-large-CNN model</div>
+                    <div class="step-content">
+                        <div class="step-title">Retrieval & Summary Generation</div>
+                        <div class="step-desc">Retrieve top-k relevant chunks and generate summaries using BART-large-CNN model</div>
+                    </div>
+                </div>
+                <div class="arrow">↓</div>
+                
+                <div class="pipeline-step">
+                    <div class="step-number">6</div>
+                    <div class="step-content">
+                        <div class="step-title">Multi-format Output</div>
+                        <div class="step-desc">Save results as JSON (structured), Markdown (readable), and display in console</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Key Features -->
+        <div class="section">
+            <div class="section-title">System Capabilities</div>
+            <div class="features-grid">
+                <div class="feature-box">
+                    <div class="feature-title">Document Processing</div>
+                    <ul class="feature-list">
+                        <li>PDF, TXT, MD, JSON support</li>
+                        <li>Semantic text chunking</li>
+                        <li>Vector embeddings</li>
+                        <li>Relevance scoring</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-title">News Integration</div>
+                    <ul class="feature-list">
+                        <li>7 major news sources</li>
+                        <li>RSS feed parsing</li>
+                        <li>Content extraction</li>
+                        <li>Batch processing</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-title">AI Processing</div>
+                    <ul class="feature-list">
+                        <li>MiniLM-L6-v2 embeddings</li>
+                        <li>BART summarization</li>
+                        <li>ChromaDB vector search</li>
+                        <li>GPU acceleration</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-box">
+                    <div class="feature-title">Output Options</div>
+                    <ul class="feature-list">
+                        <li>JSON structured data</li>
+                        <li>Markdown reports</li>
+                        <li>Console display</li>
+                        <li>Timestamped files</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- News Sources -->
+        <div class="section">
+            <div class="section-title">Integrated News Sources</div>
+            <div class="news-sources">
+                <div class="news-source">BBC World</div>
+                <div class="news-source">Reuters</div>
+                <div class="news-source">CNN International</div>
+                <div class="news-source">Associated Press</div>
+                <div class="news-source">Al Jazeera</div>
+                <div class="news-source">NPR World</div>
+                <div class="news-source">The Guardian</div>
+            </div>
+        </div>
+        
+        <!-- Technical Stack -->
+        <div class="section">
+            <div class="section-title">Technical Components</div>
+            <div class="tech-stack">
+                <div class="tech-item">
+                    <div class="tech-name">Embedding Model</div>
+                    <div class="tech-desc">all-MiniLM-L6-v2<br>384 dimensions</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-name">Summarization</div>
+                    <div class="tech-desc">BART-large-CNN<br>Facebook AI</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-name">Vector Database</div>
+                    <div class="tech-desc">ChromaDB<br>Cosine Similarity</div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-name">Processing</div>
+                    <div class="tech-desc">PyTorch<br>CPU/GPU Support</div>
                 </div>
             </div>
         </div>
         
         <!-- Performance Metrics -->
-        <div class="visualization">
-            <div class="viz-title">📊 Performance Results</div>
-            <table class="metrics-table">
+        <div class="section">
+            <div class="section-title">Performance Metrics</div>
+            <table class="performance-table">
                 <thead>
                     <tr>
-                        <th>Document</th>
-                        <th>Original Length</th>
-                        <th>Chunks Created</th>
-                        <th>Summary Length</th>
-                        <th>Compression Ratio</th>
-                        <th>Processing Time</th>
+                        <th>Metric</th>
+                        <th>Document Processing</th>
+                        <th>News Processing</th>
+                        <th>Notes</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>AI Article</strong></td>
-                        <td>160 words</td>
-                        <td>1 chunk</td>
-                        <td>46 words</td>
-                        <td>3.5:1</td>
-                        <td>~3.0 sec</td>
+                        <td><strong>Processing Speed</strong></td>
+                        <td>3-4 seconds/doc</td>
+                        <td>15-20 articles/minute</td>
+                        <td>CPU optimized</td>
                     </tr>
                     <tr>
-                        <td><strong>Climate Report</strong></td>
-                        <td>193 words</td>
-                        <td>1 chunk</td>
-                        <td>49 words</td>
-                        <td>3.9:1</td>
-                        <td>~3.2 sec</td>
+                        <td><strong>Compression Ratio</strong></td>
+                        <td>3.5-3.9:1</td>
+                        <td>4-6:1 (news articles)</td>
+                        <td>Consistent quality</td>
                     </tr>
                     <tr>
-                        <td><strong>Tech Trends</strong></td>
-                        <td>177 words</td>
-                        <td>1 chunk</td>
-                        <td>48 words</td>
-                        <td>3.7:1</td>
-                        <td>~3.1 sec</td>
+                        <td><strong>Memory Usage</strong></td>
+                        <td>~500MB baseline</td>
+                        <td>+200MB per batch</td>
+                        <td>Efficient chunking</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Supported Formats</strong></td>
+                        <td>PDF, TXT, MD, JSON</td>
+                        <td>RSS feeds, HTML</td>
+                        <td>Extensible design</td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+        
+        <!-- File Structure -->
+        <div class="section">
+            <div class="section-title">Project Structure</div>
+            <div class="file-tree">
+<pre>
+enhanced-rag-summarizer/
+├── main.py                    # Main execution script
+├── news_retriever.py          # News fetching module
+├── rag_summarizer.py         # Original RAG implementation
+├── enhanced_rag_summarizer.py # Enhanced version
+├── requirements.txt          # Dependencies
+├── README.md                # Documentation
+├── visualizations.html       # This file
+├── news_data/               # Generated outputs
+│   ├── raw_news_*.json     # Original articles
+│   ├── news_summaries_*.json # Structured summaries
+│   └── news_summaries_*.md   # Readable format
+└── sample_docs/             # Test documents
+    ├── ai_article.txt
+    ├── climate_report.txt
+    └── tech_trends.txt
+</pre>
+            </div>
+        </div>
+        
+        <!-- Usage Examples -->
+        <div class="section">
+            <div class="section-title">Usage Examples</div>
             
-            <div class="chart-container">
-                <div class="chart">
-                    <div class="chart-title">Document Length Comparison</div>
-                    <div class="bar-chart">
-                        <div class="bar-item">
-                            <div class="bar-label">AI Article</div>
-                            <div class="bar" style="width: 83%;">
-                                <div class="bar-value">160 words</div>
-                            </div>
-                        </div>
-                        <div class="bar-item">
-                            <div class="bar-label">Climate Report</div>
-                            <div class="bar" style="width: 100%;">
-                                <div class="bar-value">193 words</div>
-                            </div>
-                        </div>
-                        <div class="bar-item">
-                            <div class="bar-label">Tech Trends</div>
-                            <div class="bar" style="width: 92%;">
-                                <div class="bar-value">177 words</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="chart">
-                    <div class="chart-title">Compression Efficiency</div>
-                    <div class="bar-chart">
-                        <div class="bar-item">
-                            <div class="bar-label">AI Article</div>
-                            <div class="bar" style="width: 90%;">
-                                <div class="bar-value">3.5:1</div>
-                            </div>
-                        </div>
-                        <div class="bar-item">
-                            <div class="bar-label">Climate Report</div>
-                            <div class="bar" style="width: 100%;">
-                                <div class="bar-value">3.9:1</div>
-                            </div>
-                        </div>
-                        <div class="bar-item">
-                            <div class="bar-label">Tech Trends</div>
-                            <div class="bar" style="width: 95%;">
-                                <div class="bar-value">3.7:1</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <h4>Quick Start - Latest News</h4>
+            <div class="code-block">
+<pre>
+python main.py
+</pre>
+            </div>
+            
+            <h4>Custom News Processing</h4>
+            <div class="code-block">
+<pre>
+from enhanced_rag_summarizer import EnhancedRAGSummarizer
+
+rag = EnhancedRAGSummarizer()
+summary_data = rag.process_all_news(articles_per_source=5)
+rag.display_news_summaries(summary_data)
+</pre>
+            </div>
+            
+            <h4>Document Summarization</h4>
+            <div class="code-block">
+<pre>
+results = rag.summarize_document("your_document.pdf")
+rag.display_results(results)
+</pre>
             </div>
         </div>
         
-        <!-- Technical Components -->
-        <div class="visualization">
-            <div class="viz-title">🔧 Technical Components</div>
-            <div class="process-flow">
-                <div class="process-box">
-                    <div class="process-icon">🤖</div>
-                    <div class="process-title">Embedding Model</div>
-                    <div class="process-detail">all-MiniLM-L6-v2<br>384 dimensions</div>
+        <!-- Key Statistics -->
+        <div class="section">
+            <div class="section-title">System Statistics</div>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-number">7</div>
+                    <div class="stat-label">News Sources</div>
                 </div>
-                <div class="process-box">
-                    <div class="process-icon">🗄️</div>
-                    <div class="process-title">Vector Database</div>
-                    <div class="process-detail">ChromaDB<br>Cosine Similarity</div>
+                <div class="stat-box">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">File Formats</div>
                 </div>
-                <div class="process-box">
-                    <div class="process-icon">📝</div>
-                    <div class="process-title">LLM Model</div>
-                    <div class="process-detail">BART-large-CNN<br>Facebook AI</div>
+                <div class="stat-box">
+                    <div class="stat-number">384</div>
+                    <div class="stat-label">Embedding Dims</div>
                 </div>
-                <div class="process-box">
-                    <div class="process-icon">⚡</div>
-                    <div class="process-title">Processing</div>
-                    <div class="process-detail">PyTorch<br>CPU/GPU Support</div>
+                <div class="stat-box">
+                    <div class="stat-number">300</div>
+                    <div class="stat-label">Words/Chunk</div>
                 </div>
-            </div>
-        </div>
-        
-        <!-- Key Achievements -->
-        <div class="visualization">
-            <div class="viz-title">🏆 Key Achievements</div>
-            <div class="process-flow">
-                <div class="process-box">
-                    <div class="process-icon">📊</div>
-                    <div class="process-title">Consistent Performance</div>
-                    <div class="process-detail">3.5-3.9:1 compression ratio across document types</div>
+                <div class="stat-box">
+                    <div class="stat-number">5:1</div>
+                    <div class="stat-label">Avg Compression</div>
                 </div>
-                <div class="process-box">
-                    <div class="process-icon">🎯</div>
-                    <div class="process-title">High Similarity Scores</div>
-                    <div class="process-detail">Strong semantic matching with negative cosine distances</div>
-                </div>
-                <div class="process-box">
-                    <div class="process-icon">⚡</div>
-                    <div class="process-title">Fast Processing</div>
-                    <div class="process-detail">3-4 seconds average processing time</div>
-                </div>
-                <div class="process-box">
-                    <div class="process-icon">🔧</div>
-                    <div class="process-title">Modular Design</div>
-                    <div class="process-detail">Easy to extend and experiment with</div>
+                <div class="stat-box">
+                    <div class="stat-number">20</div>
+                    <div class="stat-label">Articles/Min</div>
                 </div>
             </div>
         </div>
