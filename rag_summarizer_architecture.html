@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced RAG Pipeline Visualizations</title>
+    <title>RAG Pipeline Visualizations</title>
     <style>
         * {
             margin: 0;
@@ -303,7 +303,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Enhanced RAG Document & News Summarizer</h1>
+            <h1>RAG Document & News Summarizer</h1>
             <p>Pipeline Architecture & System Overview</p>
         </div>
         
@@ -495,14 +495,12 @@
             <div class="section-title">Project Structure</div>
             <div class="file-tree">
 <pre>
-enhanced-rag-summarizer/
+rag-summarizer/
 ├── main.py                    # Main execution script
 ├── news_retriever.py          # News fetching module
 ├── rag_summarizer.py         # Original RAG implementation
-├── enhanced_rag_summarizer.py # Enhanced version
 ├── requirements.txt          # Dependencies
 ├── README.md                # Documentation
-├── visualizations.html       # This file
 ├── news_data/               # Generated outputs
 │   ├── raw_news_*.json     # Original articles
 │   ├── news_summaries_*.json # Structured summaries
@@ -529,9 +527,9 @@ python main.py
             <h4>Custom News Processing</h4>
             <div class="code-block">
 <pre>
-from enhanced_rag_summarizer import EnhancedRAGSummarizer
+from rag_summarizer import EnhancedRAGSummarizer
 
-rag = EnhancedRAGSummarizer()
+rag = RAGSummarizer()
 summary_data = rag.process_all_news(articles_per_source=5)
 rag.display_news_summaries(summary_data)
 </pre>
